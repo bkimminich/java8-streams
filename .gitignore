@@ -4,6 +4,7 @@
 
 out
 .idea
+*.iml
 
 #################
 ## Eclipse
