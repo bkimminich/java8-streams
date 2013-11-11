@@ -1,6 +1,6 @@
 # Java 8 Streams
 
-This projects contains the source code examples accompanying my "Java 8 Streams" talk available on Slideshare: TODO
+This projects contains the source code examples accompanying my "Java 8 Streams" talk available on Slideshare: http://slideshare.net/BjrnKimminich/java-8-streams
 
 ## Installation
 
