@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 
@@ -29,6 +30,8 @@ public class Main {
         statelessIntermediateOperations();
         statefulIntermediateOperations();
         shortCircuitingOperations();
+        collectorExamples();
+        joiningCollector();
     }
 
     private static void creatingAndUsingAStream() {
@@ -92,6 +95,28 @@ public class Main {
                 .map(Book::getAuthor)
                 .noneMatch(isEqual(rp));
         System.out.println("Am I safe? " + phew);
+    }
+
+    private static void collectorExamples() {
+        List<Author> authors = myBooks.stream().map(Book::getAuthor).collect(Collectors.toList());
+        System.out.println("Authors: " + authors);
+
+        double averagePages = myBooks.stream().collect(Collectors.averagingInt(Book::getPages));
+        System.out.println("Average pages per book: " + averagePages);
+    }
+
+    private static void joiningCollector() {
+        // not efficient due to recursive String concatenation. And ugly.
+        String authorList = myBooks.stream().map(Book::getTitle).reduce("", (t1, t2) -> t1+t2);
+        System.out.println("Author List:\n" + authorList);
+
+        // Still inefficient. Still ugly (initial line break)
+        authorList = myBooks.stream().map(Book::getTitle).reduce("", (t1, t2) -> t1+"\n"+t2);
+        System.out.println("Author List:\n" + authorList);
+
+        // more efficient thanks to StringBuilder. Pretty printed.
+        authorList = myBooks.stream().map(Book::getTitle).collect(Collectors.joining("\n"));
+        System.out.println("Author List:\n" + authorList);
     }
 
 }
