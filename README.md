@@ -4,4 +4,4 @@ This projects contains the source code examples accompanying my "Java 8 Streams"
 
 ## Installation
 
-Simply checkout the whole project and import into IntelliJ IDEA and compile/run with Java 8 SDK. Done!
+Simply checkout the whole project and import into any Java8-ready IDE (e.g. IntelliJ IDEA 12+). Done!
