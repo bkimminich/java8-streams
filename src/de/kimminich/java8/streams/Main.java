@@ -1,10 +1,14 @@
 package de.kimminich.java8.streams;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
+
+import static java.util.function.Predicate.isEqual;
 
 public class Main {
 
@@ -23,6 +27,8 @@ public class Main {
         intermediateVsTerminal();
         consumingOperations();
         statelessIntermediateOperations();
+        statefulIntermediateOperations();
+        shortCircuitingOperations();
     }
 
     private static void creatingAndUsingAStream() {
@@ -64,7 +70,7 @@ public class Main {
             prices.forEach(p -> System.out.println("Price: " + p));
             double totalPrice = prices.reduce(0.0, (p1,p2) -> p1+p2);
         } catch (IllegalStateException e) {
-            e.printStackTrace();
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -75,4 +81,17 @@ public class Main {
                                     .reduce(0.0, (p1, p2) -> p1 + p2);
         System.out.println("Impairment costs: " + impairments);
     }
+
+    private static void statefulIntermediateOperations() {
+        myBooks.stream().map(Book::getAuthor).distinct().forEach(System.out::println);
+    }
+
+    private static void shortCircuitingOperations() {
+        Author rp = new Author("Rosamunde Pilcher");
+        boolean phew = myBooks.stream()
+                .map(Book::getAuthor)
+                .noneMatch(isEqual(rp));
+        System.out.println("Am I safe? " + phew);
+    }
+
 }
