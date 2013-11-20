@@ -1,10 +1,8 @@
 package de.kimminich.java8.streams;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
@@ -20,7 +18,7 @@ public class Main {
             new Book(uncleBob, "Clean Code", 466, 18.74, 5),
             new Book(uncleBob, "The Clean Coder", 256, 15.13, 5),
             new Book(benjaminEvans, "The Well-Grounded Java Developer", 462, 31.95, 2),
-            new Book(michaelCaughey, "Bitcoin Step by Step", 125, 3.16, 1)
+            new Book(michaelCaughey, "Bitcoin Step by Step", 125, 3.16, 1) // TODO 1FUj8As5pPsmwLdX4UHHeZhWHab4TgmSi9
     );
 
     public static void main(String[] args) {
@@ -38,12 +36,14 @@ public class Main {
 
     private static void creatingAndUsingAStream() {
         Stream<Book> books = Main.myBooks.stream();
-        Stream goodBooks = books.filter(b -> b.getStarRating() > 3);
+        Stream<Book> goodBooks = books.filter(b -> b.getStarRating() > 3);
         goodBooks.forEach(b -> System.out.println(b.toString()));
     }
 
     private static void functionalInterface() {
-        Consumer<Book> reduceRankForBadAuthors = (Book b) -> { if (b.getStarRating() < 2) b.getAuthor().addRank(-1); };
+        Consumer<Book> reduceRankForBadAuthors = (Book b) -> {
+            if (b.getStarRating() < 2) b.getAuthor().addRank(-1);
+        };
         myBooks.stream().forEach(reduceRankForBadAuthors);
         myBooks.stream().forEach(b -> b.setEstimatedReadingTime(90 * b.getPages()));
 
@@ -65,7 +65,7 @@ public class Main {
     }
 
     private static void intermediateVsTerminal() {
-        double totalPrice = myBooks.stream().mapToDouble(Book::getPrice).reduce(0.0, (p1, p2) -> p1+p2);
+        double totalPrice = myBooks.stream().mapToDouble(Book::getPrice).reduce(0.0, (p1, p2) -> p1 + p2);
         System.out.println("Total price: " + totalPrice);
     }
 
@@ -73,7 +73,7 @@ public class Main {
         try {
             DoubleStream prices = myBooks.stream().mapToDouble(Book::getPrice);
             prices.forEach(p -> System.out.println("Price: " + p));
-            double totalPrice = prices.reduce(0.0, (p1,p2) -> p1+p2);
+            double totalPrice = prices.reduce(0.0, (p1, p2) -> p1 + p2);
         } catch (IllegalStateException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
         }
@@ -81,9 +81,9 @@ public class Main {
 
     private static void statelessIntermediateOperations() {
         double impairments = myBooks.stream()
-                                    .filter(b -> b.getCondition().equals(Condition.BAD))
-                                    .mapToDouble(Book::getPrice)
-                                    .reduce(0.0, (p1, p2) -> p1 + p2);
+                .filter(b -> b.getCondition().equals(Condition.BAD))
+                .mapToDouble(Book::getPrice)
+                .reduce(0.0, (p1, p2) -> p1 + p2);
         System.out.println("Impairment costs: " + impairments);
     }
 
@@ -109,11 +109,11 @@ public class Main {
 
     private static void joiningCollector() {
         // not efficient due to recursive String concatenation. And ugly.
-        String titleList = myBooks.stream().map(Book::getTitle).reduce("", (t1, t2) -> t1+t2);
+        String titleList = myBooks.stream().map(Book::getTitle).reduce("", (t1, t2) -> t1 + t2);
         System.out.println("Title List:\n" + titleList);
 
         // Still inefficient. Still ugly (initial line break)
-        titleList = myBooks.stream().map(Book::getTitle).reduce("", (t1, t2) -> t1+"\n"+t2);
+        titleList = myBooks.stream().map(Book::getTitle).reduce("", (t1, t2) -> t1 + "\n" + t2);
         System.out.println("Title List:\n" + titleList);
 
         // more efficient thanks to StringBuilder. Pretty printed.

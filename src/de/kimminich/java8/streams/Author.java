@@ -22,7 +22,7 @@ public class Author {
     }
 
     public void addRank(int rankIncrease) {
-        rank+=rankIncrease;
+        rank += rankIncrease;
     }
 
     @Override
