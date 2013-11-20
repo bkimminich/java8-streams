@@ -15,10 +15,12 @@ public class Main {
 
     private static Author uncleBob = new Author("Robert C. Martin");
     private static Author benjaminEvans = new Author("Benjamin J. Evans");
+    private static Author michaelCaughey = new Author("Michael Caughey");
     private static List<Book> myBooks = Arrays.asList(
             new Book(uncleBob, "Clean Code", 466, 18.74, 5),
             new Book(uncleBob, "The Clean Coder", 256, 15.13, 5),
-            new Book(benjaminEvans, "The Well-Grounded Java Developer", 462, 31.95, 2)
+            new Book(benjaminEvans, "The Well-Grounded Java Developer", 462, 31.95, 2),
+            new Book(michaelCaughey, "Bitcoin Step by Step", 125, 3.16, 1)
     );
 
     public static void main(String[] args) {
@@ -107,16 +109,16 @@ public class Main {
 
     private static void joiningCollector() {
         // not efficient due to recursive String concatenation. And ugly.
-        String authorList = myBooks.stream().map(Book::getTitle).reduce("", (t1, t2) -> t1+t2);
-        System.out.println("Author List:\n" + authorList);
+        String titleList = myBooks.stream().map(Book::getTitle).reduce("", (t1, t2) -> t1+t2);
+        System.out.println("Title List:\n" + titleList);
 
         // Still inefficient. Still ugly (initial line break)
-        authorList = myBooks.stream().map(Book::getTitle).reduce("", (t1, t2) -> t1+"\n"+t2);
-        System.out.println("Author List:\n" + authorList);
+        titleList = myBooks.stream().map(Book::getTitle).reduce("", (t1, t2) -> t1+"\n"+t2);
+        System.out.println("Title List:\n" + titleList);
 
         // more efficient thanks to StringBuilder. Pretty printed.
-        authorList = myBooks.stream().map(Book::getTitle).collect(Collectors.joining("\n"));
-        System.out.println("Author List:\n" + authorList);
+        titleList = myBooks.stream().map(Book::getTitle).collect(Collectors.joining("\n"));
+        System.out.println("Title List:\n" + titleList);
     }
 
 }
