@@ -18,7 +18,7 @@ public class Main {
             new Book(uncleBob, "Clean Code", 466, 18.74, 5),
             new Book(uncleBob, "The Clean Coder", 256, 15.13, 5),
             new Book(benjaminEvans, "The Well-Grounded Java Developer", 462, 31.95, 2),
-            new Book(michaelCaughey, "Bitcoin Step by Step", 125, 3.16, 1) // TODO 1FUj8As5pPsmwLdX4UHHeZhWHab4TgmSi9
+            new Book(michaelCaughey, "Bitcoin Step by Step", 125, 3.16, 1)
     );
 
     public static void main(String[] args) {
