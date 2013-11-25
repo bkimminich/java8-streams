@@ -15,22 +15,32 @@ public class Main {
     private static Author benjaminEvans = new Author("Benjamin J. Evans");
     private static Author michaelCaughey = new Author("Michael Caughey");
     private static List<Book> myBooks = Arrays.asList(
-            new Book(uncleBob, "Clean Code", 466, 18.74, 5),
-            new Book(uncleBob, "The Clean Coder", 256, 15.13, 5),
-            new Book(benjaminEvans, "The Well-Grounded Java Developer", 462, 31.95, 2),
-            new Book(michaelCaughey, "Bitcoin Step by Step", 125, 3.16, 1)
+            new Book(uncleBob, "Clean Code", 466, 18.74, 5, 0),
+            new Book(uncleBob, "The Clean Coder", 256, 15.13, 5, 0),
+            new Book(benjaminEvans, "The Well-Grounded Java Developer", 462, 31.95, 2, 21),
+            new Book(michaelCaughey, "Bitcoin Step by Step", 125, 3.16, 1, 8)
     );
 
     public static void main(String[] args) {
+        System.out.println("------ Creating and using a Stream ------");
         creatingAndUsingAStream();
+        System.out.println("\n------ Functional Interface ------");
         functionalInterface();
+        System.out.println("\n------ Method References ------");
         methodReferences();
+        System.out.println("\n------ Intermediate vs. Terminal ------");
         intermediateVsTerminal();
+        System.out.println("\n------ Terminal = Consuming  Operations ------");
         consumingOperations();
+        System.out.println("\n------ Stateless Intermediate Operations ------");
         statelessIntermediateOperations();
+        System.out.println("\n------ Stateful Intermediate Operations ------");
         statefulIntermediateOperations();
+        System.out.println("\n------ Short-Circuiting Operations ------");
         shortCircuitingOperations();
+        System.out.println("\n------ Collector Examples ------");
         collectorExamples();
+        System.out.println("\n------ Joining Collector ------");
         joiningCollector();
     }
 
@@ -62,6 +72,15 @@ public class Main {
 
         Stream<ISBN> isbns1 = myBooks.stream().map(b -> new ISBN(b));
         Stream<ISBN> isbns2 = myBooks.stream().map(ISBN::new); // constructor
+
+        isbns1.forEach(Main::prettyPrint); // static method in own class
+        System.out.println();
+        isbns2.forEach(Main::prettyPrint);
+        System.out.println();
+    }
+
+    private static void prettyPrint(Object o) {
+        System.out.print(o + " ");
     }
 
     private static void intermediateVsTerminal() {

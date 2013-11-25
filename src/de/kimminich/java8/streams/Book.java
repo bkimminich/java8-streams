@@ -10,16 +10,17 @@ public class Book {
     private int missingPages;
     private Condition condition;
     private int starRating;
+    private ISBN isbn;
 
-    public Book(Author author, String title, int pages, double price, int starRating) {
+    public Book(Author author, String title, int pages, double price, int starRating, int missingPages) {
         this.author = author;
         this.title = title;
         this.price = price;
         this.starRating = starRating;
         this.estimatedReadingTime = 0;
         this.pages = pages;
-        this.missingPages = 0;
-        this.condition = Condition.GOOD;
+        this.missingPages = missingPages;
+        this.condition = BookStore.computeCondition(missingPages);
     }
 
     public String getTitle() {
@@ -86,6 +87,14 @@ public class Book {
         this.pages = pages;
     }
 
+    public ISBN getISBN() {
+        return isbn;
+    }
+
+    public void setISBN(ISBN isbn) {
+        this.isbn = isbn;
+    }
+
     public void fixSpellingErrors() {
         // TODO send angry mail to author
     }
@@ -100,6 +109,7 @@ public class Book {
                 ", missingPages=" + missingPages +
                 ", condition=" + condition +
                 ", starRating=" + starRating +
+                ", isbn=" + isbn +
                 '}';
     }
 }

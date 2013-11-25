@@ -6,8 +6,8 @@ public class BookStore {
         return missingPages > 10 ? Condition.BAD : Condition.GOOD;
     }
 
-    public static ISBN generateISBN(Book book) {
-        return new ISBN(book);
+    public static void generateISBN(Book book) {
+        book.setISBN(new ISBN(book));
     }
 
 }
