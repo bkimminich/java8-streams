@@ -22,35 +22,29 @@ public class Main {
     );
 
     public static void main(String[] args) {
-        System.out.println("------ Creating and using a Stream ------");
         creatingAndUsingAStream();
-        System.out.println("\n------ Functional Interface ------");
         functionalInterface();
-        System.out.println("\n------ Method References ------");
         methodReferences();
-        System.out.println("\n------ Intermediate vs. Terminal ------");
         intermediateVsTerminal();
-        System.out.println("\n------ Terminal = Consuming  Operations ------");
         consumingOperations();
-        System.out.println("\n------ Stateless Intermediate Operations ------");
         statelessIntermediateOperations();
-        System.out.println("\n------ Stateful Intermediate Operations ------");
         statefulIntermediateOperations();
-        System.out.println("\n------ Short-Circuiting Operations ------");
         shortCircuitingOperations();
-        System.out.println("\n------ Collector Examples ------");
         collectorExamples();
-        System.out.println("\n------ Joining Collector ------");
         joiningCollector();
     }
 
     private static void creatingAndUsingAStream() {
+        System.out.println("------ Creating and using a Stream ------");
+
         Stream<Book> books = Main.myBooks.stream();
         Stream<Book> goodBooks = books.filter(b -> b.getStarRating() > 3);
         goodBooks.forEach(b -> System.out.println(b.toString()));
     }
 
     private static void functionalInterface() {
+        System.out.println("\n------ Functional Interface ------");
+
         Consumer<Book> reduceRankForBadAuthors = (Book b) -> {
             if (b.getStarRating() < 2) b.getAuthor().addRank(-1);
         };
@@ -61,6 +55,8 @@ public class Main {
     }
 
     private static void methodReferences() {
+        System.out.println("\n------ Method References ------");
+
         myBooks.stream().forEach(b -> b.fixSpellingErrors());
         myBooks.stream().forEach(Book::fixSpellingErrors); // instance method
 
@@ -84,11 +80,15 @@ public class Main {
     }
 
     private static void intermediateVsTerminal() {
+        System.out.println("\n------ Intermediate vs. Terminal ------");
+
         double totalPrice = myBooks.stream().mapToDouble(Book::getPrice).reduce(0.0, (p1, p2) -> p1 + p2);
         System.out.println("Total price: " + totalPrice);
     }
 
     private static void consumingOperations() {
+        System.out.println("\n------ Terminal = Consuming  Operations ------");
+
         try {
             DoubleStream prices = myBooks.stream().mapToDouble(Book::getPrice);
             prices.forEach(p -> System.out.println("Price: " + p));
@@ -99,6 +99,8 @@ public class Main {
     }
 
     private static void statelessIntermediateOperations() {
+        System.out.println("\n------ Stateless Intermediate Operations ------");
+
         double impairments = myBooks.stream()
                 .filter(b -> b.getCondition().equals(Condition.BAD))
                 .mapToDouble(Book::getPrice)
@@ -107,10 +109,14 @@ public class Main {
     }
 
     private static void statefulIntermediateOperations() {
+        System.out.println("\n------ Stateful Intermediate Operations ------");
+
         myBooks.stream().map(Book::getAuthor).distinct().forEach(System.out::println);
     }
 
     private static void shortCircuitingOperations() {
+        System.out.println("\n------ Short-Circuiting Operations ------");
+
         Author rp = new Author("Rosamunde Pilcher");
         boolean phew = myBooks.stream()
                 .map(Book::getAuthor)
@@ -119,6 +125,8 @@ public class Main {
     }
 
     private static void collectorExamples() {
+        System.out.println("\n------ Collector Examples ------");
+
         List<Author> authors = myBooks.stream().map(Book::getAuthor).collect(Collectors.toList());
         System.out.println("Authors: " + authors);
 
@@ -127,6 +135,8 @@ public class Main {
     }
 
     private static void joiningCollector() {
+        System.out.println("\n------ Joining Collector ------");
+
         // not efficient due to recursive String concatenation. And ugly.
         String titleList = myBooks.stream().map(Book::getTitle).reduce("", (t1, t2) -> t1 + t2);
         System.out.println("Title List:\n" + titleList);
