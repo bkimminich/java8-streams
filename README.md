@@ -4,6 +4,7 @@ This projects contains the source code examples accompanying my "Java 8 Streams"
 
 ## Installation
 
-Simply checkout the whole project and import into any Java8-ready IDE (successfully tested with IntelliJ IDEA 12). Done!
+Simply checkout the whole project and import folder into any Java8-ready IDE. Done!
 
+[![Build Status](https://travis-ci.org/bkimminich/java8-streams.svg)](https://travis-ci.org/bkimminich/java8-streams)
 [![endorse](https://api.coderwall.com/bkimminich/endorsecount.png)](https://coderwall.com/bkimminich)
